@@ -20,9 +20,9 @@ COPY . .
 # Copy over the cached dependencies
 COPY --from=cacher /app/target target
 COPY --from=cacher /usr/local/cargo /usr/local/cargo
-RUN cargo build --release --bin app
+RUN cargo build --release --bin chef-test
 
 FROM rust as runtime
 WORKDIR app
-COPY --from=builder /app/target/release/app /usr/local/bin
-ENTRYPOINT ["./usr/local/bin/app"]
+COPY --from=builder /app/target/release/chef-test /usr/local/bin
+ENTRYPOINT ["./usr/local/bin/chef-test"]
